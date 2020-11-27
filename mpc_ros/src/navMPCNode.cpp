@@ -264,10 +264,17 @@ void MPCNode::pathCB(const nav_msgs::Path::ConstPtr& pathMsg)
             //find waypoints distance
             if(_waypointsDist <=0.0)
             {        
-                double dx = pathMsg->poses[1].pose.position.x - pathMsg->poses[0].pose.position.x;
-                double dy = pathMsg->poses[1].pose.position.y - pathMsg->poses[0].pose.position.y;
-                _waypointsDist = sqrt(dx*dx + dy*dy);
-                _downSampling = int(_pathLength/10.0/_waypointsDist);
+                if(pathMsg->poses.size() > 2)
+                {
+                    double dx = pathMsg->poses[1].pose.position.x - pathMsg->poses[0].pose.position.x;
+                    double dy = pathMsg->poses[1].pose.position.y - pathMsg->poses[0].pose.position.y;
+                    _waypointsDist = sqrt(dx*dx + dy*dy);
+                    _downSampling = int(_pathLength/10.0/_waypointsDist);
+                }
+                else
+                {
+                    _goal_reached = true;
+                }
             }            
 
             // Cut and downsampling the path
