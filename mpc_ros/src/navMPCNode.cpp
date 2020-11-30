@@ -491,8 +491,8 @@ void MPCNode::controlLoopCB(const ros::TimerEvent&)
         _speed = v + _throttle * dt;  // speed
         if (_speed >= _max_speed)
             _speed = _max_speed;
-        if(_speed <= 0.0)
-            _speed = 0.0;
+        else if(_speed <= -_max_speed)
+            _speed = -_max_speed;
 
         if(_debug_info)
         {
