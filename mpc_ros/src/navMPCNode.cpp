@@ -294,7 +294,7 @@ void MPCNode::pathCB(const nav_msgs::Path::ConstPtr& pathMsg)
                 sampling = sampling + 1;  
             }
            
-            if(odom_path.poses.size() >= 6 )
+            if(odom_path.poses.size() >= 2 )
             {
                 _odom_path = odom_path; // Path waypoints in odom frame
                 _path_computed = true;
