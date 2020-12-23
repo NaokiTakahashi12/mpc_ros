@@ -283,7 +283,6 @@ void MPCNode::pathCB(const nav_msgs::Path::ConstPtr& pathMsg)
                 if(total_length > _pathLength)
                     break;
 
-                if(sampling == _downSampling)
                 {   
                     geometry_msgs::PoseStamped tempPose;
                     _tf_listener.transformPose(_odom_frame, ros::Time(0) , pathMsg->poses[i], _map_frame, tempPose);                     
@@ -440,8 +439,6 @@ void MPCNode::controlLoopCB(const ros::TimerEvent&)
         // Implementation about theta error more precisly
         if(gx && gy && temp_theta - traj_deg < 1.8 * PI)
             etheta = temp_theta - traj_deg;
-        else
-            etheta = 0;
 
         cout << "etheta: "<< etheta << ", atan2(gy,gx): " << atan2(gy,gx) << ", temp_theta:" << traj_deg << endl;
 
